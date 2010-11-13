@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from piston.handler import BaseHandler
 
-from backend import get_messages
+from backend import get_noties
 
 
 class MessageHandler(BaseHandler):
@@ -10,4 +10,4 @@ class MessageHandler(BaseHandler):
     def read(self, request):
         if request.user.is_anonymous():
             return rc.FORBIDDEN
-        return dict(zip(('valid', 'messages'), get_messages(request.user)))
+        return dict(zip(('valid', 'notices'), get_notices(request.user)))

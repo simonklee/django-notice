@@ -2,14 +2,14 @@ from distutils.core import setup
 import os
 
 setup(
-    name = 'django-messages',
-    packages = ['messages'],
+    name = 'django-notice',
+    packages = ['notice'],
     version='0.1.0',
-    description='django-messages is an application to send messages.',
+    description='django-notice is an application to send messages.',
     long_description=open('README').read(),
     author='Simon Zimmermann',
     author_email='simonz05@gmail.com',
-    url='http://github.com/simonz05/django-messages',
+    url='http://github.com/simonz05/django-notice',
     license='GPL',
     install_requires=['django-piston'],
     classifiers=[

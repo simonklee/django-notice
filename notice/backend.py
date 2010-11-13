@@ -11,7 +11,7 @@ def push_message(user, message, expire=True):
     if not message or not hasattr(user, 'pk'):
         return False
 
-    key = 'user:%s:messages' % user.pk
+    key = 'user:%s:notices' % user.pk
 
     if r.rpush(key, message):
         if expire:
@@ -19,11 +19,11 @@ def push_message(user, message, expire=True):
         return True
     return False
 
-def get_messages(user):
+def get_notices(user):
     if not hasattr(user, 'pk'):
         return (False, None)
 
-    key = 'user:%s:messages' % user.pk
+    key = 'user:%s:notices' % user.pk
     llen = r.llen(key)
     if llen == 0:
         return (False, None)

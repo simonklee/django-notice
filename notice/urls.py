@@ -6,5 +6,5 @@ from handlers import MessageHandler
 mes = Resource(handler=MessageHandler)
 
 urlpatterns = patterns('',
-    url(r'^get_messages$', mes, name = 'messages_get_messages'),
+    url(r'^get_notices$', mes, name = 'notice_get_notices'),
 )

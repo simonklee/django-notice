@@ -1,5 +1,5 @@
 (function($) {
-    $.fn.displayMessages = function(url, settings) {
+    $.fn.displayNotice = function(url, settings) {
         settings = $.extend({
             callback: false
         }, settings);
@@ -21,9 +21,9 @@
                         if (settings.callback)  {
                             settings.callback(data);
                         } else {
-                            console.log("got messages ");
-                            $.each(data.messages, function(k, v) {
-                                console.log("message " + k + " " + v);
+                            console.log("got notices ");
+                            $.each(data.notices, function(k, v) {
+                                console.log("notices " + k + " " + v);
                                 $('<p>' + v + '</p>').appendTo(target);
                             });
                         }
