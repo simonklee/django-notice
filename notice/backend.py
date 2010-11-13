@@ -7,7 +7,7 @@ def add_user(user):
         return True
     return False
 
-def push_message(user, message, expire=True):
+def push_notice(user, message, expire=True):
     if not message or not hasattr(user, 'pk'):
         return False
 

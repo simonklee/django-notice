@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from piston.handler import BaseHandler
 
-from backend import get_noties
+from backend import get_notices
 
 
 class MessageHandler(BaseHandler):
