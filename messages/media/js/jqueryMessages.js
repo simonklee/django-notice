@@ -1,31 +1,38 @@
 (function($) {
     $.fn.displayMessages = function(url, settings) {
         settings = $.extend({
-            all: true
+            callback: false
         }, settings);
 
         return this.each(function() {
             var target = $(this);
-                $.ajax({
-                    async: false,
-                    dataType: 'json',
-                    traditional: true,
-                    error: function(XHR, textStatus, errorThrown)   {
-                        status = true;
-                    },
-                    success: function(data, textStatus) {
-                        status = data.valid;
-                        if (!status)    {
-                            if (settings.callback)  {
-                                settings.callback(data, form);
-                            }
+            var status = false;
+            
+            $.ajax({
+                dataType: 'json',
+                error: function(XHR, textStatus, errorThrown)   {
+                    status = false;
+                    console.log("request was " + errorThrown);
+                },
+                success: function(data) {
+                    status = data.valid;
+                    console.log("request was " + status);
+                    if (status) {
+                        if (settings.callback)  {
+                            settings.callback(data);
+                        } else {
+                            console.log("got messages ");
+                            $.each(data.messages, function(k, v) {
+                                console.log("message " + k + " " + v);
+                                $('<p>' + v + '</p>').appendTo(target);
+                            });
                         }
-                    },
-                    type: 'GET',
-                    url: url
-                });
-                return status;
+                    }
+                },
+                type: 'GET',
+                url: url
             });
+            return status;
         });
     };
 })(jQuery);

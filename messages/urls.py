@@ -1,10 +1,10 @@
 from django.conf.urls.defaults import *
 from piston.resource import Resource
 
-from messages.handlers import MessagesHandler
+from handlers import MessageHandler
 
-messages = Resource(handler=MonHandler)
+mes = Resource(handler=MessageHandler)
 
 urlpatterns = patterns('',
-    url(r'^get_messages$', messages, name = 'messages_get_messages'),
+    url(r'^get_messages$', mes, name = 'messages_get_messages'),
 )
