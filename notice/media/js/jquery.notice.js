@@ -1,7 +1,26 @@
 (function($) {
+    var onSuccess = function(data, target) {
+        var status = data.valid;
+        //console.log("request was " + status);
+        if (status) {
+            // console.log("got notices ");
+            $.each(data.notices, function(k, v) {
+                var notice = $('<p class="notice">' + v + '</p>');
+                target.append(notice).animate({
+                    backgroundColor: "#fff",
+                    opacity: 1.0
+                }, 3000, 'easeInExpo',
+                function() {
+                    //console.log("animation complete");
+                    notice.fadeOut();
+                });
+            });
+        }
+    }
+
     $.fn.displayNotice = function(url, settings) {
         settings = $.extend({
-            callback: false
+            callback: onSuccess
         }, settings);
 
         return this.each(function() {
@@ -15,19 +34,7 @@
                     console.log("request was " + errorThrown);
                 },
                 success: function(data) {
-                    status = data.valid;
-                    console.log("request was " + status);
-                    if (status) {
-                        if (settings.callback)  {
-                            settings.callback(data);
-                        } else {
-                            console.log("got notices ");
-                            $.each(data.notices, function(k, v) {
-                                console.log("notices " + k + " " + v);
-                                $('<p>' + v + '</p>').appendTo(target);
-                            });
-                        }
-                    }
+                    settings.callback(data, target);
                 },
                 type: 'GET',
                 url: url
