@@ -13,10 +13,13 @@ def push_notice(user, message, expire=True):
 
     key = 'user:%s:notices' % user.pk
 
-    if r.rpush(key, message):
-        if expire:
-            r.expire(key, 15)
-        return True
+    try:
+        if r.rpush(key, message):
+            if expire:
+                r.expire(key, 15)
+            return True
+    except redis.ConnectionError:
+        pass
     return False
 
 def get_notices(user):
@@ -24,10 +27,13 @@ def get_notices(user):
         return (False, None)
 
     key = 'user:%s:notices' % user.pk
-    llen = r.llen(key)
-    if llen == 0:
-        return (False, None)
+    try:
+        llen = r.llen(key)
+        if llen == 0:
+            return (False, None)
 
-    data = r.lrange(key, 0, llen - 1)
-    r.ltrim(key, llen, -1)
-    return (True, data)
+        data = r.lrange(key, 0, llen - 1)
+        r.ltrim(key, llen, -1)
+        return (True, data)
+    except redis.ConnectionError:
+        return (False, None)
