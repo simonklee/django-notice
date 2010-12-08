@@ -5,15 +5,16 @@
         if (status) {
             // console.log("got notices ");
             $.each(data.notices, function(k, v) {
-                var notice = $('<p class="notice">' + v + '</p>');
-                target.append(notice).animate({
-                    backgroundColor: "#fff",
-                    opacity: 1.0
-                }, 3000, 'easeInExpo',
-                function() {
-                    //console.log("animation complete");
-                    notice.fadeOut();
-                });
+                $('<p class="notice">' + v + '</p>')
+                    .hide()
+                    .appendTo(target)
+                    .fadeIn(400)
+                    .animate({
+                        opacity: 1.0
+                    }, 3000)
+                    .fadeOut("fast", function(){
+  					    $(this).remove();
+                    });
             });
         }
     }
