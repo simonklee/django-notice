@@ -1,13 +1,10 @@
 {% load notice %}
 
-<div id="notice">
-</div>
+<ul id="notice">
+</ul>
 
 {% include_notice %}
 <script type="text/javascript">
 $(document).ready(function() {
-    var intervalID = setInterval(function() {
-    $('#notice').displayNotice("{% url notice_get_notices %}", {});
-        }, 1000);
-    });
+    $('#notice').displayNotice();
 </script>
