@@ -1,0 +1,7 @@
+svn+http://code.djangoproject.com/svn/django/trunk/
+git+http://github.com/robhudson/django-debug-toolbar.git
+git+git://github.com/django-extensions/django-extensions.git
+#git+git://github.com/simonz05/django-notice.git
+ipdb
+fabric
+simplejson

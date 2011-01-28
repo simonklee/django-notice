@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset=utf-8>
+    <title>long</title>
+    <script type="text/javascript" src="{{ MEDIA_URL }}jquery-min.js"></script>
+</head>
+<body>
+    <header>
+        <h1>{% block header %}{% endblock %}</h1>
+    </header>
+    {% block content %}
+    {% endblock %}
+    <footer>
+    Testing long polling with django and uwsgi
+    </footer>
+</body>
+</html>

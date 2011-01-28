@@ -1,4 +1,2 @@
-## Install
-
-Requires: 
-    
+This is a long-polling package to be used with uWSGI green threads.
+Its somewhat more a test than anything else.

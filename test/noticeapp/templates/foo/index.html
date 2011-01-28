@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<ul id="foo"></ul>
+
+<script type="text/javascript"> 
+$(document).ready(function() {
+    var update = {
+        poll: function() {
+            $.ajax({
+                url: "{% url notice_get_notices %}",
+                async: true,
+                cache: false,
+                type: 'GET',
+                dataType: 'json',
+                timeout: 20000,
+                success: update.onSuccess,
+                error: update.onError,
+            });
+        },
+
+        onSuccess: function(resp) {
+            for (var i = 0; i < resp.notices.length; i++) { 
+                var node = $(document.createElement('li')).text(resp.notices[i]);
+                node.hide();
+                $('#foo').append(node);
+                node.fadeIn();
+            }
+            update.poll();
+        },
+    
+        onError: function(resp) {
+            console.log('.');
+            update.poll();
+        },
+    };
+    setTimeout(update.poll, 1); // force async execution of code
+});
+</script>
+{% endblock %}

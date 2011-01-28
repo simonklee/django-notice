@@ -1,6 +1,12 @@
 import redis
 
-r = redis.Redis("localhost")
+from django.conf import settings
+
+conf = getattr(settings, 'REDIS', {'default': {'DB': 0, 'HOST': 'localhost','PORT': 6380}})
+r = redis.Redis(
+    conf['default']['HOST'],
+    conf['default']['PORT'],
+    conf['default']['DB'])
 
 def add_user(user):
     if r.sadd("users", user.pk):
