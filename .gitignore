@@ -1,5 +1,6 @@
 *.pyc
 *.egg-info
+genuwsgi.ini
 settings_local.py
 ve/
 build/
