@@ -30,16 +30,16 @@ def push_notice(user, message, expire=True):
 
 def get_notices(user):
     if not hasattr(user, 'pk'):
-        return (False, None)
+        return
 
     key = 'user:%s:notices' % user.pk
     try:
         llen = r.llen(key)
         if llen == 0:
-            return (False, None)
+            return
 
         data = r.lrange(key, 0, llen - 1)
         r.ltrim(key, llen, -1)
-        return (True, data)
+        return data
     except redis.ConnectionError:
-        return (False, None)
+        return
