@@ -1,21 +1,17 @@
-import sys
-import time
-
 try:
     import uwsgi
 except ImportError:
     pass
    # raise ImportError('uWSGI is required to run this package')
 
-from django.http import HttpResponse, Http404
-from django.shortcuts import render_to_response as render
+from django.contrib.auth.decorators import login_required, user_passes_test
+from django.http import HttpResponse
 from django.template import RequestContext
 from django.utils.functional import Promise
 from django.views.decorators.http import condition
-from django.contrib.auth.decorators import login_required, user_passes_test
 from simplejson import JSONEncoder
 
-from backend import get_notices, push_notice
+from backend import get_notices, add_notice
 
 class LazyEncoder(JSONEncoder):
     def default(self, obj):
@@ -36,7 +32,7 @@ def add(request):
     except KeyError:
         user = request.user
 
-    push_notice(user, notice)
+    add_notice(user, notice)
     return HttpResponse(
         JSONEncoder().encode({'valid': True}),
         mimetype='application/json')

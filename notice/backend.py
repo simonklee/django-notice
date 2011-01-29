@@ -8,17 +8,11 @@ r = redis.Redis(
     conf['default']['PORT'],
     conf['default']['DB'])
 
-def add_user(user):
-    if r.sadd("users", user.pk):
-        return True
-    return False
-
-def push_notice(user, message, expire=True):
+def add_notice(user, message, expire=True):
     if not message or not hasattr(user, 'pk'):
         return False
 
     key = 'user:%s:notices' % user.pk
-
     try:
         if r.rpush(key, message):
             if expire:
@@ -37,7 +31,6 @@ def get_notices(user):
         llen = r.llen(key)
         if llen == 0:
             return
-
         data = r.lrange(key, 0, llen - 1)
         r.ltrim(key, llen, -1)
         return data
