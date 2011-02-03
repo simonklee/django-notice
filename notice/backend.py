@@ -2,11 +2,11 @@ import redis
 
 from django.conf import settings
 
-conf = getattr(settings, 'REDIS', {'default': {'DB': 0, 'HOST': 'localhost','PORT': 6380}})
+conf = getattr(settings, 'REDIS', {'default': {'db': 0, 'host': 'localhost','port': 6380}})
 r = redis.Redis(
-    conf['default']['HOST'],
-    conf['default']['PORT'],
-    conf['default']['DB'])
+    conf['default']['host'],
+    conf['default']['port'],
+    conf['default']['db'])
 
 def add_notice(user, message, expire=True):
     if not message or not hasattr(user, 'pk'):
